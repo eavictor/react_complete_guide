@@ -6,8 +6,21 @@ const Cockpit = (props) => {
     useEffect(() => {
         console.log("[Cockpit.js] useEffect");
         // HTTP Request...
-        setTimeout(() => {alert("Send something")}, 1000);
-    }, []);  // pass empty array to only fire once, or non-empty array to only trigger when element changes.
+        const timer =  setTimeout(() => {alert("Send something")}, 1000);
+        return () => {
+            clearTimeout(timer);
+            console.log("[Cockpit.js] clean up work in useEffect");
+        }
+    }, []);  // pass empty array to only fire when component is created or destroyed, or non-empty array to only trigger when element changes
+    // Remember will also run clean up function in "return"
+
+    useEffect(() => {
+        console.log("[Cockpit.js] 2nd useEffect");
+        return () => {
+            console.log("[Cockpit.js] clean up work in 2nd useEffect");
+        }
+    });  // no empty array passed in, so 2nd useEffect will fire everytime when page re-render happens.
+
     const classes = [];
 
     let btnClass = {
@@ -23,11 +36,11 @@ const Cockpit = (props) => {
     }
 
 
-    if (props.persons.length <= 2) {
+    if (props.personsLength <= 2) {
         classes.push('red');  // classes will be ['red']
     }
 
-    if (props.persons.length <= 1) {
+    if (props.personsLength <= 1) {
         classes.push('bold');  // classes will be ['red', 'bold']
     }
 
@@ -41,4 +54,4 @@ const Cockpit = (props) => {
 };
 
 
-export default Cockpit;
+export default React.memo(Cockpit);
