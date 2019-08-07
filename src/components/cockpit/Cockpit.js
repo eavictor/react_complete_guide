@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Cockpit.css";
 
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
+    useEffect(() => {
+        console.log("[Cockpit.js] useEffect");
+        // HTTP Request...
+        setTimeout(() => {alert("Send something")}, 1000);
+    }, []);  // pass empty array to only fire once, or non-empty array to only trigger when element changes.
     const classes = [];
 
     let btnClass = {
@@ -36,4 +41,4 @@ const cockpit = (props) => {
 };
 
 
-export default cockpit;
+export default Cockpit;
