@@ -5,6 +5,7 @@ import AuthContext from '../../context/AuthContext';
 
 const Cockpit = (props) => {
     const toggleBtnRef = React.useRef(null);
+    const authContext = React.useContext(AuthContext);
 
     useEffect(() => {
         toggleBtnRef.current.click();
@@ -56,9 +57,7 @@ const Cockpit = (props) => {
             <h1>Hi, I'm a React App</h1>
             <p className={classes.join(' ')}>This is really working</p>
             <button ref={toggleBtnRef} style={btnClass} onClick={props.toggle}>Toggle Persons</button>
-            <AuthContext.Consumer>
-                {context => <button onClick={context.login}>Login</button>}
-            </AuthContext.Consumer>
+            <button onClick={authContext.login}>Login</button>
         </div>
     )
 };
