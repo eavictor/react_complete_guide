@@ -35,22 +35,21 @@ class Persons extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         console.log("[Persons.js] shouldComponentUpdate");
-        return this.props.persons !== nextProps.persons;  // array only compares memory address (the pointer value to array object).
+        return (this.props.persons !== nextProps.persons) | (this.props.isAuthenticated !== nextProps.isAuthenticated);  // array only compares memory address (the pointer value to array object).
     }
 
     render(){
         return this.props.persons.map((person, index) => {
-            return (
-                <Person
-                    key={person.id}
-                    click={() => this.props.clicked(index)}
-                    name={person.name}
-                    age={person.age}
-                    changed={(event) => this.props.changed(event, person.id)}
-                />
-            );
-        });
-    };
+                return (
+                    <Person
+                        key={person.id}
+                        click={() => this.props.clicked(index)}
+                        name={person.name}
+                        age={person.age}
+                        changed={(event) => this.props.changed(event, person.id)}
+                    />
+                );
+            })};
 }
 
 

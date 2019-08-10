@@ -1,8 +1,15 @@
 import React, {useEffect} from "react";
 import "./Cockpit.css";
+import AuthContext from '../../context/AuthContext';
 
 
 const Cockpit = (props) => {
+    const toggleBtnRef = React.useRef(null);
+
+    useEffect(() => {
+        toggleBtnRef.current.click();
+    }, []);
+
     useEffect(() => {
         console.log("[Cockpit.js] useEffect");
         // HTTP Request...
@@ -48,7 +55,10 @@ const Cockpit = (props) => {
         <div className="Cockpit">
             <h1>Hi, I'm a React App</h1>
             <p className={classes.join(' ')}>This is really working</p>
-            <button style={btnClass} onClick={props.toggle}>Toggle Persons</button>
+            <button ref={toggleBtnRef} style={btnClass} onClick={props.toggle}>Toggle Persons</button>
+            <AuthContext.Consumer>
+                {context => <button onClick={context.login}>Login</button>}
+            </AuthContext.Consumer>
         </div>
     )
 };
